@@ -1,0 +1,44 @@
+#include<string>
+class Solution {
+public:
+    int calPoints(vector<string>& ops) {
+        stack<int> s1;
+        int i = 0;
+        //s1.push(ops[0]);
+        while(i < ops.size()){
+            int score = 0;
+            if(ops[i] == "+"){
+                int score_1 = s1.top();
+                s1.pop();
+                score = s1.top() + score_1;
+                s1.push(score_1);
+            }
+            else if(ops[i] == "D"){
+                score = 2 * s1.top();
+            }
+            else if(ops[i] == "C"){
+                s1.pop();
+                i++;
+                continue;
+            }
+            else{
+                /*int j = 1;
+                string temp = "";
+                while(ops[j] != "\0"){
+                      temp[j - 1] = ops[i][j];
+                      j++;
+                      }*/
+                score = stoi(ops[i]);
+            }
+            s1.push(score);
+            i++;
+        }
+        int ans = 0;
+        while(!s1.empty()){
+            ans += s1.top();
+            s1.pop();
+        }
+        
+        return ans;
+    }
+};
