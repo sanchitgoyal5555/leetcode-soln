@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+class Solution {
+public:
+    string removeDuplicates(string S) {
+        stack<char> s1;
+        int i = 0;
+        //abbaca
+        while(i < S.size()){
+            if( !s1.empty() && s1.top() == S[i]){
+                s1.pop();
+                i++;
+                continue;
+            }
+            s1.push(S[i]);
+            if(s1.top() == S[i+1]){
+                s1.pop();
+                i++;
+            }
+            i++;
+        }
+        string ans;
+        while(!s1.empty()){
+            ans = s1.top() + ans;
+            s1.pop();
+        }
+        return ans;
+    }
+};
