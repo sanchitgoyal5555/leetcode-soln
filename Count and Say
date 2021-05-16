@@ -1,0 +1,22 @@
+class Solution {
+public:
+    string countAndSay(int n) {
+        if(n == 1){
+            return "1";
+        }
+        string short_say = countAndSay(n-1);
+        string say; 
+        for(int i = 0; i < short_say.length();){
+            int j = i;
+            int count = 0;
+            while(j < short_say.length() && short_say[j] == short_say[i]){
+                count++;
+                j++;
+            }
+            say.push_back(count + 48);
+            say.push_back(short_say[i]);
+            i = j;
+        }
+        return say;
+    }
+};
