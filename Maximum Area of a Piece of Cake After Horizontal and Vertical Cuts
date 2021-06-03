@@ -1,0 +1,35 @@
+#define mod 1000000007
+class Solution {
+public:
+    int maxArea(int h, int w, vector<int>& horizontalCuts, vector<int>& verticalCuts) {
+        
+        sort(verticalCuts.begin(),verticalCuts.end());
+        sort(horizontalCuts.begin(),horizontalCuts.end());
+        int hor_max = horizontalCuts[0] - 0;
+        int ver_max = verticalCuts[0] - 0;
+        horizontalCuts.push_back(h);
+        verticalCuts.push_back(w);
+        for(int i = 0; i < horizontalCuts.size()-1; i++){
+                int hor_start = horizontalCuts[i];
+                int hor_end = horizontalCuts[i+1];
+                
+                if(hor_end - hor_start > hor_max){
+                    hor_max = hor_end - hor_start;
+                }
+               
+            }
+    for(int j = 0; j < verticalCuts.size()-1; j++){
+        int ver_start = verticalCuts[j];
+        int ver_end = verticalCuts[j+1];
+        if(ver_end - ver_start > ver_max){
+            ver_max = ver_end - ver_start;
+        }
+    }
+        hor_max = hor_max%mod;
+        ver_max = ver_max%mod;
+        //long long ans = ((hor_max%mod)*(ver_max%mod))%mod;
+        //ans = (ans*ver_max)%mod;
+        //ans = ans%mod;
+        return hor_max*ver_max % mod;
+    }
+};
