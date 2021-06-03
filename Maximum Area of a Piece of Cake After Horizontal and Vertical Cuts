@@ -27,9 +27,9 @@ public:
     }
         hor_max = hor_max%mod;
         ver_max = ver_max%mod;
-        //long long ans = ((hor_max%mod)*(ver_max%mod))%mod;
-        //ans = (ans*ver_max)%mod;
-        //ans = ans%mod;
-        return hor_max*ver_max % mod;
+        long long ans = (hor_max%mod)%mod;
+        ans = (ans*ver_max)%mod;
+        ans = ans%mod;
+        return ans;
     }
 };
