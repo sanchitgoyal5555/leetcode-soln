@@ -1,0 +1,60 @@
+//link: https://leetcode.com/problems/open-the-lock/
+class Solution {
+public:
+    int helper(unordered_set<string> end, string target){
+        queue<string> q;
+        unordered_set<string> s1;
+        string input = "0000";
+        q.push(input);
+        //int ans = 1;
+        s1.insert(input);
+        if(end.count(input) != 0){
+            return -1;
+        }
+        unordered_map<string,string> parent;
+        parent["0000"] = "-1";
+        while (!q.empty())
+        {
+            string front = q.front();
+            q.pop();
+            //s1.insert(temp);
+            if(front == target){
+                int ans = 0;
+                while(parent[front] != "-1"){
+                    string curr = parent[front];
+                    front = curr;
+                    //parent[temp] = parent[curr];
+                    ans++;
+                }
+                return ans;
+            }
+            for(int i = 0; i < 4; i++){
+                string temp = front;
+                int a = temp[i] - 48;
+                int b = temp[i] - 48;
+                a = (a+1)%10;
+                temp[i] = a + '0';
+                if(s1.count(temp) == 0 && end.count(temp) == 0){
+                    parent[temp] = front;
+                    q.push(temp);
+                    s1.insert(temp);
+                }
+                b = (b -1 + 10)%10;
+                temp[i] = b + '0';
+                if(s1.count(temp) == 0 && end.count(temp) == 0){
+                    parent[temp] = front;
+                    q.push(temp);
+                    s1.insert(temp);
+                }
+                
+            }
+            //ans++;
+        }
+        return -1;
+    }
+    int openLock(vector<string>& deadends, string target) {
+        
+        unordered_set<string> end(deadends.begin(),deadends.end());
+        return helper(end, target);
+    }
+};
