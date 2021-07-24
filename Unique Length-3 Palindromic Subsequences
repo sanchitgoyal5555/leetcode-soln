@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int countPalindromicSubsequence(string s) {
+        
+        unordered_set<string> s1;
+        int count = 0;
+        int i = 0;
+        int arr[26] = {0};
+        while(i!=s.size()){
+            if(arr[s[i] - 'a'] == 1){
+                i++;
+                continue;
+            }
+            int j = s.size()-1;
+            arr[s[i]-'a'] = 1;
+            while(j!=i+1){
+                if(s[i] == s[j]){
+                    break;
+                }
+                j--;
+            }
+            int k = i + 1;
+            while(k < j){
+                string temp = "";        
+                temp = temp + s[i] + s[k] + s[j];
+                if(s1.count(temp) == 0){
+                    s1.insert(temp);
+                    //cout << temp << endl;
+                    count++;
+                }
+                k++;
+            }
+            i++;
+        }
+        return s1.size();
+    }
+};
