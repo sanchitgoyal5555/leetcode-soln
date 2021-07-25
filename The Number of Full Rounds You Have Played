@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int numberOfRounds(string startTime, string finishTime) {
+        int h = (startTime[0] - 48)*10 + startTime[1] - 48;
+        int m = (startTime[3] - 48)*10 + startTime[4] - 48;
+        int stime = h*60 + m;
+        
+        int fh = (finishTime[0] - 48)*10 + finishTime[1] - 48;
+        int fm = (finishTime[3] - 48)*10 + finishTime[4] - 48;
+        int ftime = fh*60 + fm;
+        if(ftime < stime){
+            ftime = ftime + 24*60;
+        }
+        if(stime%15 != 0){
+            stime =  stime + 15 - stime%15;
+        }
+        if(ftime%15 != 0){
+            ftime = ftime - ftime%15;
+        }
+        int ans = (ftime-stime)/15;
+        if(ans < 0){
+            return 0;
+        }
+        return ans;
+        
+        
+    }
+};
