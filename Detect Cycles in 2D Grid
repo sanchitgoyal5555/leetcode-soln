@@ -1,0 +1,52 @@
+class Solution {
+public:
+    int n;
+    int m;
+    bool isValid(int i, int j){
+        return i >= 0 && j >= 0 && i < n && j < m;
+    }
+
+    bool dfs(vector<vector<char>> &board, int i, int j, char sv, int prev_i, int prev_j, vector<vector<bool>>& visited){
+        
+        visited[i][j] = true;
+        int dx[] = {0,-1,0,1};
+        int dy[] = {-1,0,1,0};
+        bool short_ans = false;
+        for(int a = 0; a < 4; a++){
+            int x = i + dx[a];
+            int y = j + dy[a];
+            if(!(x == prev_i && y == prev_j)){
+                if(isValid(x,y) && board[x][y] == sv){
+                    if(visited[x][y] == true){
+                    return true;
+                    }
+                    else{
+                        short_ans = short_ans || dfs(board, x, y, sv, i, j, visited);
+                    }
+                }
+            }    
+
+        }
+        return short_ans;
+    }
+    bool containsCycle(vector<vector<char>>& board) {
+        n = board.size();
+        m = board[0].size();
+        vector<vector<bool>> visited(n, vector<bool>(m, false));
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m; j++){
+                //int cycle = 0;
+                if(!visited[i][j]){
+                    char sv = board[i][j];
+                    int cycle = 0;
+                    bool output = dfs(board, i, j, sv, -1,-1, visited);
+                    if(output){
+                        return true;
+                    }
+                }
+
+            }
+        }
+        return false;
+    }
+};
