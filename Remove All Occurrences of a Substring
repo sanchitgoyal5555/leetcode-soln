@@ -1,0 +1,31 @@
+class Solution {
+public:
+    string helper(string& s, string part, int i){
+        s = s.substr(0,i)+s.substr(i+part.length());
+        return s;
+    }
+    
+    string removeOccurrences(string s, string part) {
+        int i = 0;
+        int x = s.size();
+        //int p_size = part.size();
+        while(i < x){
+            int j = 0;
+            int temp = i;
+            while(j < part.size() && s[temp] == part[j]){
+                temp++;
+                j++;
+            }
+            if(j == part.size()){
+                s = helper(s, part, i);
+                cout<<s<<endl;
+                i = 0;
+            }
+            else{
+                i++;
+            }
+            x = s.size();
+        }
+        return s;
+    }
+};
