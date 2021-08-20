@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<int> prisonAfterNDays(vector<int>& input, int n) {
+        vector<int> output(8,0);
+        vector<vector<int>> ans;
+        //vector<int> temp = input;
+        //int j = 0;
+        while(n--){
+            for(int i = 1; i < 7; i++){
+                if(input[i-1] == input[i+1]){
+                    output[i] = 1;
+                }
+                else{
+                    output[i] = 0;
+                }
+            }
+            if(ans.size() && ans.front() == output){
+                return ans[n%ans.size()];
+            }
+            ans.push_back(output);
+            input = output;
+        }
+        return output;
+    }
+};
