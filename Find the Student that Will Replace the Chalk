@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int chalkReplacer(vector<int>& chalk, int k) {
+        
+        int n = chalk.size();
+        long long int sum = 0;
+        for(int i = 0; i < n; i++){
+            sum += chalk[i];
+        }
+        if(sum <= k){
+            k = k%sum;
+        }
+        int i = 0;
+        while(k>0){
+            if(k<chalk[i]){
+                break;
+            }
+            else{
+                k = k-chalk[i];
+            }
+            i++;
+        }
+        return i;
+        
+    }
+};
