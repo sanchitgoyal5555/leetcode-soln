@@ -1,0 +1,24 @@
+class Solution {
+public:
+    bool isSumEqual(string input1, string input2, string target) {
+        int value1 = 0;
+        for(int i = 0; i < input1.size();i++){
+            int d = input1[i]-'a';
+            value1 = value1*10+d;
+        }
+        int value2 = 0;
+        for(int i = 0; i < input2.size();i++){
+            int d = input2[i]-'a';
+            value2 = value2*10+d;
+        }
+        int value3 = 0;
+        for(int i = 0; i < target.size();i++){
+            int d = target[i]-'a';
+            value3 = value3*10+d;
+        }
+        if(value1+value2 == value3){
+            return true;
+        }
+        return false;
+    }
+};
