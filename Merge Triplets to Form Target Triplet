@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool mergeTriplets(vector<vector<int>>& triplet, vector<int>& target) {
+
+        int i = 0;
+        int first = 0;
+        int second = 0;
+        int third = 0;
+        //vector<int> v1;
+        while(i!= triplet.size()){
+            if(triplet[i][0] == target[0] && triplet[i][1] <= target[1] && triplet[i][2] <= target[2])
+                first = 1;
+            if(triplet[i][1] == target[1] && triplet[i][0] <= target[0] && triplet[i][2] <= target[2])
+                second = 1;
+            if(triplet[i][0] <= target[0] && triplet[i][1] <= target[1] && triplet[i][2] == target[2])
+                third = 1;
+            i++;
+        }
+        return first && second && third;
+        
+    }
+};
