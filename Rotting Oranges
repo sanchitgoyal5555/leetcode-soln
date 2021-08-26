@@ -1,0 +1,55 @@
+class Solution {
+public:
+    int m;
+    int n;
+    
+    bool isValid(int i, int j){
+        return i >= 0 && i < m && j >= 0 && j < n;
+    }
+    
+    int orangesRotting(vector<vector<int>>& grid) {
+        m = grid.size();
+        n = grid[0].size();
+        int dx[] = {-1,0,1,0};
+        int dy[] = {0,1,0,-1};
+        queue<pair<int,int>> q1;
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(grid[i][j] == 2){
+                    q1.push({i,j});
+                }
+            }
+        }
+        
+        int count = 0;
+        while(!q1.empty()){
+            int k = q1.size();
+            while(k--){
+                
+                auto temp = q1.front();
+                q1.pop();
+                for(int a = 0; a < 4; a++){
+                    int x = temp.first + dx[a];
+                    int y = temp.second + dy[a];
+                    if(isValid(x,y) && grid[x][y] == 1){
+                        grid[x][y] = 2;
+                        q1.push({x,y});
+                    }
+                }
+            }
+            if(!q1.empty()){
+                count++;
+            }
+        }
+        
+        
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(grid[i][j] == 1){
+                    return -1;
+                }
+            }
+        }
+        return count;
+    }
+};
