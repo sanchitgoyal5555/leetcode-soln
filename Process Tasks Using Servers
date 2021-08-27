@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<int> assignTasks(vector<int>& servers, vector<int>& tasks) {
+        priority_queue<array<long, 3>, vector<array<long, 3>>, greater<array<long, 3>>> avail, busy;
+        //[time,weight,index]
+        for(int i = 0; i < servers.size(); i++){
+            avail.push({0,servers[i],i});
+        }
+        //int j = 0;
+        vector<int> res;
+        vector<int> time(servers.size(),0);
+        for(int t = 0; t < tasks.size(); t++){
+            while(!busy.empty() && (busy.top()[0] <= t || avail.empty())) {
+                auto [time, w, i] = busy.top(); busy.pop();
+                avail.push({ time <= t ? 0 : time, w, i });
+            }
+            auto [time, w, s] = avail.top(); avail.pop();
+            if(t > time){
+                time = t;
+            }
+            busy.push({time + tasks[t], w, s });
+            res.push_back(s);
+            
+        }
+        return res;
+    }
+};
