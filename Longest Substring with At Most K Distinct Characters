@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int lengthOfLongestSubstringKDistinct(string &s, int k) {
+        // write your code here
+    int n = s.size();
+    if(n==0 || k == 0){
+        return 0;
+    }
+    unordered_set<char> s1;
+    for(int i = 0; i < n; i++){
+        s1.insert(s[i]);
+    }
+    if(s1.size() < k){
+        return n;
+    }
+        //vector<int> freq(26,0);
+        unordered_map<char,int> freq;
+        int temp = 0, ans = -1;
+        int i = 0, j = 0;
+        while(i<n){
+            // if(freq.count(s[i])){
+            //     temp++;
+            // }
+            freq[s[i]]++;
+            while(freq.size() > k){
+                freq[s[j]]--;
+                if(freq[s[j]]== 0){
+                    freq.erase(s[j]);
+                }
+                j++;
+            }
+            ans = max(ans,i-j+1);
+            i++;
+            
+
+        }
+        return ans;
+    }
+};
