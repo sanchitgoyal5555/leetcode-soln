@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int atmostK(vector<int>& nums, int k){
+        unordered_map<int,int> freq;
+        int j = 0;
+        int ans = 0;
+        for(int i = 0; i < nums.size(); i++){
+            freq[nums[i]]++;
+            while(freq.size() > k){
+                freq[nums[j]]--;
+                if(freq[nums[j]] == 0){
+                    freq.erase(nums[j]);
+                }
+                j++;
+            }
+            ans += i-j+1;
+        }
+        
+        return ans;
+    }
+    int subarraysWithKDistinct(vector<int>& nums, int k) {
+        return atmostK(nums,k) - atmostK(nums,k-1);
+    }
+};
