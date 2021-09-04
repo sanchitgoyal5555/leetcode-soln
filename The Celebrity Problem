@@ -1,0 +1,43 @@
+int celebrity(vector<vector<int> >& input, int n) 
+    {
+        // code here 
+        
+        stack<int> s1;
+        for(int i = 0; i < n; i++){
+            s1.push(i);
+        }
+        int i = 0;
+        while(s1.size()>=2){
+            int a = s1.top();
+            s1.pop();
+            int b = s1.top();
+            s1.pop();
+            if(input[a][b]==1){
+                s1.push(b);
+            }
+            else{
+                s1.push(a);
+            }
+            i++;
+        }
+        int s = s1.top();
+        //  cout << s;
+        //int t = 0;
+        s1.pop();
+        if(!s1.empty()){
+            return -1;
+        }
+        for(int i = 0; i < n; i++){
+            if(s == i){
+                continue;
+            }
+            if(input[s][i] == 1 || input[i][s] == 0){
+                return -1;
+            }
+            else{
+                continue;
+            }
+        }
+        return s;
+        return -1;
+    }
