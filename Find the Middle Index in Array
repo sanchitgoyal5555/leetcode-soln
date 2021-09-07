@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int findMiddleIndex(vector<int>& nums) {
+        vector<int>s1(nums.size()+1,0);
+        vector<int>s2(nums.size()+1,0);
+        int i = 1;
+        int j = nums.size()-1;
+        s1[0] = 0;
+        while(i != nums.size()){
+            s1[i] = s1[i-1] + nums[i-1];
+            i++;
+        }
+        s2[j+1] = 0;
+        s2[j] = 0;
+        j--;
+        while(j >= 0){
+            s2[j] = s2[j+1] + nums[j+1];
+            j--;
+        }
+        if(s1[0] == s2[0])
+            return 0;
+        for(int k = 1; k < nums.size(); k++){
+            if(s1[k] == s2[k]){
+                return k;
+            }
+        }
+        return -1;
+        
+    }
+};
