@@ -22,24 +22,21 @@ public:
             left--;
             right--;
         }
-        ListNode *con = prev, *tail = curr;
-        while(right){
+        ListNode* s1 = prev, *s2 = curr;
+        while(right && curr){
             ListNode* temp = curr->next;
             curr->next = prev;
             prev = curr;
             curr = temp;
             right--;
         }
-        if(con!= NULL) 
-        {
-            con->next = prev;
+        if(s1){
+            s1->next = prev;
         }
-        else
-        {
+        else{
             head = prev;
         }
-
-        tail->next = curr;
+        s2->next = curr;
         return head;
             
     }
