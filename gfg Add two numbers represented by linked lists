@@ -1,0 +1,76 @@
+class Solution
+{
+    public:
+    //Function to add two numbers represented by linked list.
+    Node* reverse(Node* head){
+        if(!head->next){
+            return head;
+        }
+        Node* temp = head->next;
+        
+        head->next = reverse(head->next);
+        Node* newHead = head->next;
+        temp->next = head;
+        head->next = NULL;
+        // head = newHead;
+        
+        return newHead;
+        
+        
+    }
+    struct Node* addTwoLists(struct Node* first, struct Node* second)
+    {
+        // code here
+        Node* temp1 = reverse(first);
+        Node* temp2 = reverse(second);
+        Node* temp = new Node(-1);
+        Node* tail = temp;
+        int carry = 0;
+        while(temp1 && temp2){
+            int x = (temp1->data + temp2->data) + carry;
+            carry = 0;
+            Node* curr = new Node(x%10);
+            if(x>9){
+                carry = 1;
+            }
+            tail->next = curr;
+            tail = tail->next;
+            temp1 = temp1->next;
+            temp2 = temp2->next;
+        }
+        while(temp1){
+            int x = temp1->data+carry;
+            carry = 0;
+            Node* curr = new Node(x%10);
+            if(x>9){
+                carry = 1;
+            }
+            tail->next = curr;
+            tail = tail->next;
+            temp1 = temp1->next;
+        }
+        while(temp2){
+            int x = temp2->data+carry;
+            carry = 0;
+            Node* curr = new Node(x%10);
+            if(x>9){
+                carry = 1;
+            }
+            tail->next = curr;
+            tail = tail->next;
+            temp2 = temp2->next;
+        }
+        if(carry)
+        {
+            Node* f=new Node(1);
+            tail->next=f;
+            tail=tail->next;
+        }
+        Node* nh = reverse(temp->next);
+        
+        return nh;
+        
+        
+        
+    }
+};
