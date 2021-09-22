@@ -1,0 +1,30 @@
+class Solution {
+public:
+    vector<int> prevPermOpt1(vector<int>& arr) {
+        int i = arr.size()-1;
+        int maxi = -1;
+        while(i > 0){
+            if(arr[i] >= arr[i-1]){
+                i--;
+            }
+            else{
+                int j = arr.size()-1;
+                while(j >= i){
+                    if(maxi == -1 && arr[j] < arr[i-1]){
+                        maxi = j;
+                    }
+                    else if(maxi != -1 && arr[j] >= arr[maxi] && arr[j] < arr[i-1]){
+                        maxi = j;
+                    }
+                    j--;
+                }
+                if(maxi != -1){
+                    swap(arr[i-1],arr[maxi]);
+                }
+                break;
+                
+            }
+        }
+        return arr;
+    }
+};
