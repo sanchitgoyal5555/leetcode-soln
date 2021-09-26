@@ -1,0 +1,75 @@
+class Solution {
+public:
+        
+    double findMedianSortedArrays(vector<int>& a, vector<int>& b) {
+        int m=a.size();
+        int n=b.size();
+        int half = (m+n+1)/2;
+        if(m>n)
+            return findMedianSortedArrays(b,a);
+        int l=0,r=m; 
+        while(l<=r){
+            int partx=(r+l)/2;
+            int party=half-partx;
+            int maxlx=(partx==0)?INT_MIN:a[partx-1];
+            int minrx=(partx==m)?INT_MAX:a[partx];
+            int maxly=(party==0)?INT_MIN:b[party-1];
+            int minry=(party==n)?INT_MAX:b[party];
+            if(maxlx<=minry&&maxly<=minrx){
+                if((m+n)%2==0)
+                    return (double)(max(maxlx,maxly)+min(minrx,minry))/2;
+                else
+                    return (double)(max(maxlx,maxly));
+            }else if(maxlx>minry)
+                r=partx-1;
+            else
+                l=partx+1;
+        }
+        return -1.0;
+    }
+};
+
+
+
+
+
+// class Solution {
+// public:
+//     double findMedianSortedArrays(vector<int>& input1, vector<int>& input2) {
+//         if(input1.size() > input2.size()){
+//             swap(input1,input2);
+//         }
+//         int total = input1.size() + input2.size();
+//         int half = total/2;
+//         int l1 = 0,r1 = input1.size()-1;
+//                     int left1,left2,right1,right2;
+//         // int x = 0;
+//         // cout << -3/2 << endl;
+//         while(l1<=r1){
+//             int i, j;
+//             i = (l1+r1)/2;
+//             j = half-i-2;
+//             int left1 = (i>=0)?input1[i]:INT_MIN;
+//             int left2 = (j>=0)?input2[j]:INT_MIN;
+//             int right1 = (i+1 < input1.size())?input1[i+1]:INT_MAX;
+//             int right2 = (j+1 < input2.size())?input2[j+1]:INT_MAX;
+//             if(left1 <= right2 && left2 <= right1){
+//                 if(total%2){
+//                     double ans = min(input1[i],input2[j]);
+//                     return ans;
+//                 }
+//                 else{
+//                     double ans = (max(left1,left2)+min(right1,right2))/2;
+//                     return ans;
+//                 }
+//             }
+//             else if(left1 > right2){
+//                 r1 = i - 1;
+//             }
+//             else{
+//                 l1 = i+1;
+//             }
+//         }
+//         return -1.0;
+//     }
+// };
