@@ -1,0 +1,50 @@
+class Solution {
+public:
+    int m,n;
+    bool isValid(int i, int j){
+        return i >= 0 && j >= 0 && i < m && j < n;
+    }
+    bool bfs(vector<vector<int>>& input, vector<int>& source,vector<int>& target, set<vector<int>> s1){
+        // vector<bool> visited;
+        int dx[] = {-1,0,1,0};
+        int dy[] = {0,1,0,-1};
+        queue<vector<int>> q1;
+        q1.push({source[0],source[1]});
+        s1.insert({source[0],source[1]});
+        while(!q1.empty() && q1.size() < 200){
+            vector<int> top = q1.front();
+            q1.pop();
+            if(top == target){
+                return true;
+            }
+            for(int i = 0; i < 4; i++){
+                int x = top[0] + dx[i];
+                int y = top[1] + dy[i];
+                vector<int> temp = {x,y};
+                if(isValid(x,y) && s1.find({x,y}) == s1.end()){
+                    s1.insert({x,y});
+                    q1.push({x,y});
+                }
+            }
+        }
+        if(q1.size() >= 200){
+            return true;
+        }
+        return false;
+    }
+             
+    bool isEscapePossible(vector<vector<int>>& input, vector<int>& source, vector<int>& target) {
+        m = 1000000;
+        n = 1000000;
+        if(input.size() == 0){
+            return true;
+        }
+        set<vector<int>> s1;
+        for(int i = 0; i < input.size(); i++){
+            s1.insert(input[i]);
+        }
+        bool ans = bfs(input,source, target, s1);
+        ans = ans && bfs(input,target,source,s1);
+        return ans;
+    }
+};
