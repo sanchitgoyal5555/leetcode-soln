@@ -1,0 +1,22 @@
+class Solution
+{
+    public:
+    Node* addOne(Node *head) 
+    {
+        // Your Code here
+        // return head of list after adding one
+        if(head == NULL){
+            return head;
+        }
+        if(head->next == NULL){
+            head->data += 1;
+            return head;
+        }
+        Node* temp = addOne(head->next);
+        head->data += temp->data/10;
+        temp->data = temp->data%10;
+        return head;
+        
+        
+    }
+};
