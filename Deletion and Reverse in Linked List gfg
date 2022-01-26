@@ -1,0 +1,36 @@
+void deleteNode(struct Node **head, int key)
+{
+    if(head== NULL){
+        return;
+    }
+    Node* curr = *head;
+    while(curr->next!= *head && curr->next->data != key){
+        curr = curr->next;
+    }
+    Node* temp = curr->next;
+    curr->next = temp->next;
+    delete(temp);
+
+}
+
+/* Function to reverse the linked list */
+ void reverse(struct Node** head)
+{
+    Node* prev = NULL;
+    Node* current = *head;
+    Node* next;
+
+    do{
+         next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    while(current != *head);
+    (*head)->next = prev;
+    *head = prev;
+    
+    
+    
+
+}
