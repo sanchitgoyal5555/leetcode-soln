@@ -1,0 +1,55 @@
+ Node* mergeTwoLL(Node* l1, Node* l2) {
+        if(!l1 && !l2){
+            return NULL;
+        }
+        else if(!l1){
+            return l2;
+        }
+        else if(!l2){
+            return l1;
+        }
+        Node* temp = new Node(-1);
+        Node* head = temp;
+        while(l1 && l2){
+            if(l1->data <= l2->data){
+                temp->bottom = l1;
+                l1 = l1->bottom;
+            }
+            else{
+                temp->bottom = l2;
+                l2 = l2->bottom;
+            }
+            temp = temp->bottom;
+        }
+        temp->bottom = NULL;
+        if(l1){
+            temp->bottom = l1;
+        }
+        if(l2){
+            temp->bottom = l2;
+        }
+        // temp->next = NULL;
+        return head->bottom;
+    }
+    Node *flatten(Node *root)
+    {
+       // Your code here
+       vector<Node*> v1;
+       Node* temp = root;
+       while(temp){
+           Node* curr = temp;
+           v1.push_back(temp);
+           temp = temp->next;
+           curr->next = NULL;
+       }
+       int i = v1.size()-1;
+        if(i<0){
+            return NULL;
+        }
+        temp = v1[i];
+        while(i){
+            temp = mergeTwoLL(temp, v1[i-1]);
+            i--;
+        }
+        return temp;
+    }
