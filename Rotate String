@@ -9,21 +9,13 @@ public:
         }
         int len = goal.length();
         string s1 = s + s;
+        // cout<<s1;
         int j = 0;
-        int ans = true;
-        for(int i = 0;i < s1.length(); i++){
-            if(goal[j] == s1[i+j]){
-                j++;
-                if(j == goal.length() - 1){
-                    ans = true;
-                    break;
-                }
-            }
-            else{
-                j = 0;
-                ans = false;
+        for(int i = 0; i < s.length(); i++){
+            if(s1.substr(i,len) == goal){
+                return true;
             }
         }
-        return 0;
+        return false;
     }
 };
