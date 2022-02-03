@@ -12,18 +12,12 @@ public:
             if(v[s[i]-97] == 1){
                 continue;
             }
-            if(s1.empty() || s[i] > s1.top()){
-                s1.push(s[i]);
-                v[s[i]-97] = 1;
-            }
-            else{
-                while(!s1.empty() && count[s1.top()-97] != 0 && s[i] < s1.top()){
+            while(!s1.empty() && count[s1.top()-97] != 0 && s[i] < s1.top()){
                     v[s1.top()-97] = 0;
                     s1.pop();
                 }
                 s1.push(s[i]);
                 v[s[i]-97] = 1;
-            }
         }
         string res = "";
         while(!s1.empty()){
