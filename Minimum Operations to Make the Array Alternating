@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int minimumOperations(vector<int>& nums) {
+        int n = nums.size();
+        unordered_map<int,int> even,odd;
+        int maxe = 0, maxo = 0, sece = 0, seco = 0;
+        for(int i = 0; i < n; i++){
+            if(i%2 == 0){
+                even[nums[i]]++;
+                if(even[nums[i]] >= even[maxe]){
+                    if(nums[i] != maxe)
+                        sece = maxe;
+                    maxe = nums[i];
+                }
+                else if(even[nums[i]] > even[sece]){
+                    sece = nums[i];
+                }                                                                                                       
+            }
+            else{
+                odd[nums[i]]++;
+                if(odd[nums[i]] >= odd[maxo]){
+                    if(nums[i] != maxo)
+                        seco = maxo;
+                    maxo = nums[i];
+                }
+                else if(odd[nums[i]] > even[seco]){
+                    seco= nums[i];
+                }
+            }
+        }
+        // cout << even[maxe] << " " << even[sece] << " "<< odd[maxo] << " "<< odd[seco] << endl;
+        int ans = n - even[maxe] - odd[maxo];
+        if(maxe == maxo){
+            ans = n - max((even[sece]+odd[maxo]), (even[maxe]+odd[seco]));
+        }
+        return ans;              
+
+    }
+};
