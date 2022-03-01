@@ -1,0 +1,28 @@
+class Solution {
+public:
+    long long minimumTime(vector<int>& time, int trips) {
+        if(trips == 0){
+            return 0;
+        }
+        long long int n = 0;
+        long long int high = 1e14;
+        long long int low = 1;
+        long long int mid = 0;
+        while(low < high){
+            mid = (low+high)/2;
+            n = 0;
+            for(int i = 0; i < time.size(); i++){
+                n += mid/time[i];
+            }
+            if(n>=trips){
+                high = mid;
+            }
+            else{
+                low = mid+1;
+            }
+        }
+        
+        return low;
+        
+    }
+};
