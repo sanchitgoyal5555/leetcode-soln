@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int minimumSum(int num) {
+        vector<int> input(4,0);
+        int i = 0;
+        while(i<4){
+            input[i] = num%10;
+            num = num/10;
+            i++;
+        }
+        sort(input.begin(),input.end());
+        int num1 = input[0]*10+input[2];
+        int num2 = input[1]*10+input[3];
+        return num1+num2;
+        
+    }
+};
