@@ -1,0 +1,26 @@
+class Solution {
+public:
+    long long smallestNumber(long long num) {
+        if(num == 0){
+            return 0;
+        }
+        string s1 = to_string(abs(num));
+        if(num<0){
+            sort(s1.begin(),s1.end(),greater<char>());
+            long long ans = stoll(s1)*-1;
+            return ans;
+        }
+        sort(s1.begin(),s1.end());
+        
+        int i = 0;
+        while(s1[i] == '0'){
+            i++;
+        }
+        char c = s1[i];
+        s1[i] = s1[0];
+        s1[0] = c;
+        long long ans = stoll(s1);
+        
+        return ans;
+    }
+};
