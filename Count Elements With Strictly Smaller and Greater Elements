@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int countElements(vector<int>& nums) {
+        int minc = INT_MAX,maxc = INT_MIN;
+        int count = 0;
+        for(int i = 0; i < nums.size(); i++){
+            if(nums[i] < minc){
+                minc = nums[i];
+            }
+            if(nums[i] > maxc){
+                maxc = nums[i];
+            }
+        }
+        for(int i = 0; i < nums.size(); i++){
+            if(minc < nums[i] && maxc > nums[i]){
+                count++;
+            }
+        }
+        
+        return count;
+    }
+};
