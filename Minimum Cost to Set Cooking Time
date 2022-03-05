@@ -1,0 +1,61 @@
+class Solution {
+public:    
+    vector<int> spread(int x, vector<int> numbers){
+        while(x>0)
+        {
+           numbers.push_back(x%10);
+           x/=10;
+        }
+
+        reverse(numbers.begin(), numbers.end());
+        return numbers;
+    }
+    
+    int minCostSetTime(int startAt, int moveCost, int pushCost, int target) {
+         
+        unordered_set<int> output;
+        if(target < 100){
+            output.insert(target);
+        }
+        int temp_min = target/60;
+        int temp= temp_min*100+target%60;
+        output.insert(temp);
+        int temp2 = target-(temp_min-1)*60; //or target%60 < 40
+        if(temp2 < 100){
+            temp2 = temp2 + (temp_min-1)*100;
+            output.insert(temp2);
+        }
+
+        int minc = INT_MAX;
+        for(auto it = output.begin(); it!= output.end(); it++){
+            vector<int> v1;
+            int temp = *it;
+            if(temp <= 0){
+                continue;
+            }
+            v1 = spread(temp,v1);
+            int sum = 0;
+            for(int i = 0; i < v1.size(); i++){
+                cout << v1[i];
+            }
+            cout << endl;
+            if(v1.size() > 4){
+                continue;
+            }
+            int start = startAt;
+            for(int i = 0; i < v1.size(); i++){
+                if(v1[i] != start){
+                    sum += moveCost;
+                }
+                sum += pushCost;
+                start = v1[i];
+            }
+            minc = min(minc,sum);
+            
+        }
+        
+        return minc;
+        
+        
+    }
+};
