@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int countLatticePoints(vector<vector<int>>& circles) {
+        set<pair<int,int>> s1;
+        for(int i = 0; i < circles.size(); i++){
+            int xi = circles[i][0];
+            int yi = circles[i][1];
+            int ri = circles[i][2];
+            int sh = xi-ri;
+            int eh = xi+ri;
+            int sv = yi-ri;
+            int ev = yi+ri;
+            for(int j = sh; j <= eh; j++){
+                for(int k = sv; k <= ev; k++){
+                    int temp = pow((j-xi),2) + pow((k-yi),2) - pow(ri,2);
+                    if(temp <= 0){
+                        s1.insert({j,k});
+                    }
+                }
+            }
+        }
+        return s1.size();
+    }
+};
