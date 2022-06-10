@@ -1,0 +1,30 @@
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int n = nums.size();
+        int i = n-1;
+        for(; i > 0; i--){
+            if(nums[i] > nums[i-1]){
+                break;
+            }
+        }
+        int j = i;
+        if(i > 0){
+            int mine = nums[j];
+            int idx = j;
+            for(; j < n; j++){
+                if(nums[j] < mine && nums[j] > nums[i-1]){
+                    mine = nums[j];
+                    idx = j;
+                }
+            }
+            swap(nums[idx], nums[i-1]);
+            sort(nums.begin()+i,nums.end());
+        }
+        else{
+            sort(nums.begin(),nums.end());
+
+        }
+        
+    }
+};
