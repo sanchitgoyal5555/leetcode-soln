@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& input, int target) {
+        int m = input.size();
+        int n = input[0].size();
+        int i = 0, j = 0;
+        while(i < m && j < n){
+            if(target == input[i][j]){
+                return true;
+            }
+            else if(target < input[i][j]){
+                return false;
+            }
+            else if(target > input[i][j]){
+                if(j == n-1){
+                    if(i == m-1){
+                        return false;
+                    }
+                    i++;
+                    j = 0;
+                }
+                else if(i == m-1){
+                    j++;
+                }
+                else if(target < input[i+1][j]){
+                    j++;
+                }
+                else{
+                    i++;
+                }
+            }
+        }
+        return false;
+    }
+};
