@@ -1,0 +1,21 @@
+class Solution{
+    public:
+    int maxLen(vector<int>&nums, int n)
+    {   
+        // Your code here
+        int curr = 0, maxs = 0;
+        unordered_map<int,int> ump;
+        ump[0] = -1;
+        for(int i = 0; i < nums.size(); i++){
+            curr+= nums[i];
+            if(ump.find(curr) != ump.end()){
+                int temp = i-ump[curr];
+                maxs = max(maxs, temp);
+            }
+            else{
+                ump[curr] = i;
+            }
+        }
+        return maxs;
+    }
+};
