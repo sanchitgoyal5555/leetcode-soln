@@ -1,0 +1,17 @@
+vector<int> Solution::repeatedNumber(const vector<int> &nums) {
+    long long int n = nums.size();
+    vector<int> ans;
+    long long int temp = (n*(n+1))/2;
+    long long int temp2 = (n*(n+1)*((n*2)+1))/6;
+    for(int i = 0; i < n; i++){
+        temp -= (long long int)nums[i];
+        temp2 -= (long long int)nums[i]*(long long int)nums[i];
+    }
+    temp2 = temp2/temp;
+    long long int mis = (temp+temp2)/2;
+    long long int rep = abs(temp2-mis);
+    ans.push_back(rep);
+    ans.push_back(mis);
+    return ans;
+}
+
