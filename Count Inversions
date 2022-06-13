@@ -1,0 +1,53 @@
+#include <bits/stdc++.h> 
+long long int merge(long long int input[], int low, int mid, int high){
+    int i = low, j = mid,k=0;
+    long long int output[high-low+1];
+    long long int count = 0;
+    while(i< mid && j <= high){
+        if(input[i] <= input[j]){
+            output[k] = input[i];
+            i++;
+            k++;
+        }
+        else{
+            output[k] = input[j];
+            j++;
+            k++;
+            count += mid-i;
+        }
+    }
+    while(i< mid){
+        output[k] = input[i];
+        i++;
+        k++;
+    }
+    while(j <= high){
+        output[k] = input[j];
+        j++;
+        k++;
+    }
+    k = 0;
+    for(int i = low; i <= high; i++){
+        input[i] = output[k];
+        k++;
+    }
+    return count;
+}
+
+long long int helper(long long int input[], int low, int high){
+    if(low>=high){
+        return 0;
+    }
+    int mid = (low+high)/2;
+    long long int count1 = 0;
+    count1 += helper(input,low,mid);
+    count1 += helper(input,mid+1,high);
+    count1 += merge(input,low,mid+1,high);
+    return count1;
+}
+
+
+long long getInversions(long long *arr, int n){
+    // Write your code here.
+    return helper(arr, 0, n-1);
+}
