@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool static comparator(vector<int> a, vector<int> b){
+        return a[1] >= b[1];
+    }
+    int maximumUnits(vector<vector<int>>& input, int truckSize) {
+        sort(input.begin(), input.end(), comparator);
+        int ans = 0;
+        for(int i = 0; i < input.size() && truckSize > 0; i++){
+            if(truckSize < input[i][0]){
+                ans += truckSize*input[i][1];
+            }
+            else{
+                ans += input[i][0]* input[i][1];
+            }
+            truckSize -= input[i][0];
+        }
+        
+        
+        return ans;
+    }
+};
