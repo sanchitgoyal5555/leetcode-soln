@@ -1,0 +1,41 @@
+class Solution {
+public:
+    bool isValid(string str) {
+        stack<int> s;
+        for(auto c: str){
+            if(c == ')'){
+                if(!s.empty() && s.top() == '('){
+                    s.pop();
+                    continue;
+                }
+                else{
+                    return false;
+                }
+            }
+            else if(!s.empty() && c == ']'){
+                if(s.top() == '['){
+                    s.pop();
+                    continue;
+                }
+                else{
+                    return false;
+                }
+            }
+            else if(!s.empty() && c == '}'){
+                if(s.top() == '{'){
+                    s.pop();
+                    continue;
+                }
+                else{
+                    return false;
+                }
+            }
+            else{
+                s.push(c);
+            }
+        }
+        if(!s.empty())
+            return false;
+        return true;
+    }
+};
