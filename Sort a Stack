@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+void helper(stack<int> &s1, int x){
+    if(s1.empty() || s1.top() <= x){
+        s1.push(x);
+    }
+    else{
+        int y = s1.top();
+        s1.pop();
+        helper(s1,x);
+        helper(s1,y);
+    }
+}
+
+void sortStack(stack<int> &s1)
+{
+	// Write your code here
+    if(!s1.empty()){
+        int x = s1.top();
+        s1.pop();
+        sortStack(s1);
+        helper(s1, x);
+    }
+}
