@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int myAtoi(string s) {
+        vector<int> v1;
+        int n = s.size();
+        bool sign = true;
+        int i = 0;
+        while(i < n && s[i] == ' '){
+            i++;
+        }
+        if(s[i] == '-'){
+            sign = false;
+            i++;
+        }
+        else if(s[i] == '+'){
+            i++;
+        }
+        for(; i < n; i++){
+            if(s[i] >= '0' && s[i] <= '9')
+                v1.push_back(s[i]-'0');
+            else
+                break;
+        }
+        long int ans = 0;
+        for(int k = 0; k < v1.size(); k++){
+            if((long)ans*10+v1[k] > INT_MAX){
+                return sign?INT_MAX:INT_MIN;
+            }
+            ans = ans*10 + v1[k];
+        }
+        if(!sign)
+            return ans*-1;
+        return ans;
+    }
+};
