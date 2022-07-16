@@ -1,0 +1,44 @@
+class Solution {
+public:
+    const int m = 1e9+7;
+    bool rabinkarp(string source, string tar){
+        int s = source.size();
+        int t = tar.size();
+        long int power = 1;
+        for(int i = 0;i<t;i++){
+            power = (power*31)%m;
+        }
+        long int target = 0;
+        for(int i = 0; i < t; i++){
+            target = (target*31+tar[i])%m;
+        }
+        long int hash = 0;
+        for(int i = 0;i<s;i++){
+            hash = (hash*31 + source[i])%m;
+            if(i<t-1) continue;
+             if(i>=t){
+                hash = (hash-source[i-t]*power)%m;
+            }
+            if(hash<0)
+                hash += m;
+            if(hash == target){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    int repeatedStringMatch(string input, string t) {
+        int count = 1;
+        string s = input;
+        while(s.size() < t.size()){
+            s += input;
+            count++;
+        }
+        if(rabinkarp(s, t)) 
+            return count;
+        else if(rabinkarp(s+input,t))
+            return count+1;
+        return -1;
+    }
+};
