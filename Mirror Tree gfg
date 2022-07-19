@@ -1,0 +1,33 @@
+
+class Solution {
+  public:
+    // Function to convert a binary tree into its mirror tree.
+    void mirror(Node* node) {
+        // code here
+        if(!node){
+            return;
+        }
+        if(!node->left && !node->right){
+            return;
+        }
+        if(!node->left){
+            mirror(node->right);
+            node->left = node->right;
+            node->right = NULL;
+        }
+        else if(!node->right){
+            mirror(node->left);
+            node->right = node->left;
+            node->left = NULL;
+        }
+        else{
+            mirror(node->left);
+            mirror(node->right);
+            Node* temp = node->left;
+            node->left = node->right;
+            node->right = temp;
+        }
+        
+        
+    }
+};
