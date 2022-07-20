@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int digitsum(int num){
+        int sum = 0;
+        while(num > 0){
+            sum += num%10;
+            num /= 10;
+        }
+        return sum;
+    }
+    int maximumSum(vector<int>& nums) {
+        unordered_map<int,vector<int>>ump;
+        for(int i = 0; i < nums.size(); i++){
+            ump[digitsum(nums[i])].push_back(nums[i]);
+        }
+        int ans = -1;
+        
+        for(auto it:ump){
+            int s = it.second.size();
+            if(s < 2){
+                continue;
+            }
+            int max1 = -1;
+            int max2 = -1;
+            for(int i = 0; i < s; i++){
+                int temp = it.second[i];
+                if(temp >= max1){
+                    max2 = max1;
+                    max1 = temp;
+                }
+                else if(temp > max2 && temp <= max1){
+                    max2 = temp;
+                }
+                
+            }
+            ans = max(ans, max1+max2);
+            // sort(it.second.begin(), it.second.end());
+            // int temp = it.second[s-2] + it.second[s-1];
+            // ans = max(ans, temp);
+        }
+        return ans;
+        
+    }
+};
