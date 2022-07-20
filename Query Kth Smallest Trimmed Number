@@ -1,0 +1,25 @@
+class Solution {
+public:
+    
+    vector<int> smallestTrimmedNumbers(vector<string>& nums, vector<vector<int>>& queries) {
+        vector<int> ans;
+        int n = nums.size();
+        int k = queries.size();
+        int i = 0;
+        vector<pair<string,int>> temp;
+        while(i < k){
+            temp.clear();
+            int fir = queries[i][0];
+            int sec = queries[i][1];
+            for(int i = 0; i < n; i++){
+                int x = nums[i].size();
+                string s = nums[i].substr(x-sec);
+                temp.push_back({s,i});
+            }
+            sort(temp.begin(), temp.end());
+            ans.push_back(temp[fir-1].second);
+            i++;
+        }
+        return ans;
+    }
+};
