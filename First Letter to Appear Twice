@@ -1,0 +1,13 @@
+class Solution {
+public:
+    char repeatedCharacter(string s) {
+        unordered_set<char> s1;
+        for(auto c:s){
+            if(s1.find(c) != s1.end()){
+                return c;
+            }
+            s1.insert(c);
+        }
+        return '*';
+    }
+};
