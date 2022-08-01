@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int maximumGroups(vector<int>& nums) {
+        // sort(nums.rbegin(), nums.rend());
+        int n = nums.size();
+        int l = 1;
+        int h = (n+1)/2;
+        while(l<h){
+            int m = (l+h+1)/2;
+            if((long long)(m*(m+1)/2) <= n){
+                l = m;
+            }
+            else{
+                h = m-1;
+            }
+            
+        }
+        
+        return l;
+
+    }
+};
