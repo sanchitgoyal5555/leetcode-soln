@@ -1,0 +1,60 @@
+Node* prehelper(Node* root, int key, Node* curr){
+    if(!root){
+        return NULL;
+    }
+    if(root->key >= key){
+        curr = prehelper(root->left, key, curr);
+    }
+    else{
+        if(!curr){
+            curr = root;
+        }
+        else if(root->key > curr->key && root->key < key){
+            curr = root;
+        }
+        Node* temp = prehelper(root->right, key, curr);
+        if(temp){
+            if(curr-> key < temp->key){
+                curr = temp;
+            }
+        }
+    }
+    return curr;
+}
+
+
+Node* suchelper(Node* root, int key, Node* curr){
+    if(!root){
+        return NULL;
+    }
+    if(root->key <= key){
+        curr = suchelper(root->right, key, curr);
+    }
+    else{
+        if(!curr){
+            curr = root;
+        }
+        else if(root->key < curr->key && root->key > key){
+            curr = root;
+        }
+        Node* temp = suchelper(root->left, key, curr);
+        if(temp){
+            if(curr-> key > temp->key){
+                curr = temp;
+            }
+        }
+        
+    }
+    return curr;
+}
+void findPreSuc(Node* root, Node*& pre, Node*& suc, int key)
+{
+    if(!root){
+        return;
+    }
+    suc = suchelper(root, key, NULL);
+    pre = prehelper(root, key, NULL);
+// Your code goes here
+    
+
+}
