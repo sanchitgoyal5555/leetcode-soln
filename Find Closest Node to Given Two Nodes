@@ -1,0 +1,37 @@
+class Solution {
+public:
+    
+    void helper(vector<int>& edges, int node, vector<int>& v){
+        int dist = 0;
+        int temp = node;
+        while(temp != -1 && v[temp] == -1){
+            v[temp] = dist;
+            temp = edges[temp];
+            dist++;
+        }
+    }
+    
+    int closestMeetingNode(vector<int>& edges, int node1, int node2) {
+        int n = edges.size();
+        if(node1 == node2){
+            return node1;
+        }
+        int ans = -1;
+        vector<int> v1(n, -1);
+        helper(edges, node1, v1);
+        vector<int> v2(n, -1);
+        helper(edges, node2, v2);
+        int mini = INT_MAX;
+        for(int i = 0; i < n; i++){
+            if(v1[i]==-1 || v2[i]==-1)
+                continue;
+            int temp = max(v1[i], v2[i]);
+            // cout << v1[i] << " " << v2[i] << endl;
+            if(temp < mini && temp > 0){
+                mini = temp;
+                ans = i;
+            }
+        }
+        return ans;
+    }
+};
