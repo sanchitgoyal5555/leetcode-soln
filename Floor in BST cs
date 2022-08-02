@@ -1,0 +1,43 @@
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T val;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T val) {
+            this->val = val;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+int ans;
+void helper(TreeNode<int> * root, int x){
+    if(!root){
+        return;
+    }
+    if(root->val > x){
+        helper(root->left, x);
+    }
+    else if(root->val == x){
+        ans = x;
+        return;
+    }
+    else{
+        ans = root->val;
+        helper(root->right, x);
+    }
+}
+
+int floorInBST(TreeNode<int> * root, int x)
+{
+    // Write your code here.
+    helper(root, x);
+    return ans;
+}
