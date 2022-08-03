@@ -1,0 +1,19 @@
+class Solution
+{
+    public:
+    void helper(Node* root, vector<int>& ans){
+        if(!root){
+            return;
+        }
+        helper(root->left, ans);
+        ans.push_back(root->data);
+        helper(root->right, ans);
+        
+    }
+    int kthLargest(Node *root, int k)
+    {
+        vector<int> ans;
+        helper(root, ans);
+        return ans[ans.size()-k];
+    }
+};
