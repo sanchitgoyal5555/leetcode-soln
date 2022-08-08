@@ -1,0 +1,26 @@
+class Solution {
+public:
+    string bestHand(vector<int>& ranks, vector<char>& suits) {
+        vector<int> v1(4,0);
+        for(int i = 0; i <= 4; i++){
+            v1[suits[i]-'a']++;
+            if(v1[suits[i]-'a'] == 5){
+                return "Flush";
+            }
+        }
+        unordered_map<int, int> freq;
+        bool flag = false;
+        for(int i = 0; i <= 4; i++){
+            freq[ranks[i]]++;
+            if(freq[ranks[i]] == 3){
+                return "Three of a Kind";
+            }
+            else if(freq[ranks[i]] == 2){
+                flag = true;
+            }
+        }
+        if(flag)
+            return "Pair";
+        return "High Card";
+    }
+};
