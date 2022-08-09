@@ -1,0 +1,30 @@
+class Solution {
+public:
+    void dfs(int u, vector<vector<int>>& adj, vector<bool>& visited, int &count){
+        visited[u] = true;
+        count++;
+        for (auto v:adj[u])
+        {
+            if (visited[v] == false)
+            {
+                dfs(v, adj, visited, count);
+            }
+        }
+        
+    }
+    int reachableNodes(int n, vector<vector<int>>& edges, vector<int>& restricted) {
+        vector<bool> visited(n);
+        vector<vector<int>> adj(n);
+        for(int i = 0; i < edges.size(); i++){
+            adj[edges[i][0]].push_back(edges[i][1]);
+            adj[edges[i][1]].push_back(edges[i][0]);
+        }
+        for(auto a:restricted){
+            visited[a] = true;
+        }
+        int count = 0;
+        dfs(0,adj, visited, count);
+        return count;
+        
+    }
+};
