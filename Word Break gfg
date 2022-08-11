@@ -1,0 +1,33 @@
+class Solution
+{
+public:
+
+    bool helper(string& s,int i, unordered_map<string, int>& ump){
+        if(i==s.size()){
+            return true;
+        }
+        
+        
+        for(int j=i;j<s.size();j++){
+            string curr=s.substr(i,j-i+1);
+            if(ump.count(curr)>0){
+                bool temp=helper(s,j+1,ump);
+                if(temp){
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+        
+    }
+    
+    int wordBreak(string s, vector<string> &input) {
+        //code here
+        unordered_map<string, int> ump;
+        for(int i = 0; i < input.size(); i++){
+            ump[input[i]]++;
+        }
+        return helper(s,0, ump);
+    }
+};
