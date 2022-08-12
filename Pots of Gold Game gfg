@@ -1,0 +1,31 @@
+class Solution {
+public:
+
+    
+    int helper(vector<int>&arr, int i, int j, vector<vector<int>>& dp){
+        if(dp[i][j] != -1){
+            return dp[i][j];
+        }
+        if(i == j){
+            return arr[i];
+        }
+        if(i+1 == j){
+            return max(arr[i], arr[j]);
+        }
+        if(i >= 0 && j >= 0 && i < arr.size() && j < arr.size()){
+            int opt1 = arr[i] + min(helper(arr, i+1, j-1, dp), helper(arr, i+2, j, dp));
+            int opt2 = arr[j] + min(helper(arr, i, j-2, dp), helper(arr, i+1, j-1, dp));
+            dp[i][j] = max(opt1, opt2);
+            return dp[i][j];
+        }
+        return 0;
+        
+    }
+    int maxCoins(vector<int>&arr,int n)
+    {
+	    //Write your code here
+	    vector<vector<int>> dp( 501 , vector<int> (501, -1)); 
+	    return helper(arr, 0, n-1, dp);
+	    
+    }
+};
