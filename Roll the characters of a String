@@ -1,0 +1,21 @@
+string findRollOut(string s, long long rolls[], int n)
+	{
+	    // Your code goes here
+	     unordered_map<int, int> ump;
+        // int n = rolls.size();
+        for(int i = 0; i < n; i++){
+            ump[rolls[i]-1]++;
+        }
+        vector<int> prefix(s.size()+1, 0);
+        int m = s.size();
+        prefix[m-1] = ump[m-1];
+        for(int i = m-2; i >= 0; i--){
+            prefix[i] = prefix[i+1] + ump[i];
+        }
+        // for(int i = 0; i < m; i++){
+        //     cout << prefix[i] << endl;
+        // }
+       for(int i=0;i<n;i++)  //The length of the array roll and length of the string are equal.
+            s[i] = char( 'a'+(s[i]-'a'+prefix[i])%26 );
+        return s;
+	}
