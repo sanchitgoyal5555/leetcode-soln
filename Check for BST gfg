@@ -1,0 +1,24 @@
+public:
+    //Function to check whether a Binary Tree is BST or not.
+    
+    
+    bool helper(Node* root, int min, int max){
+        if(!root){
+            return true;
+        }
+        bool ans = true;
+        return ans && helper(root->left, min, root->data) && 
+            helper(root->right, root->data, max); 
+        if(root->data > max || root-> data <= min){
+            return false;
+        }
+        
+    }
+    
+    bool isBST(Node* root) 
+    {
+        // Your code here
+        
+        return helper(root, -100000, 100000);
+    }
+};
